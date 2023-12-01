@@ -13,6 +13,9 @@ public class MainVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
+    System.out.println("Start " + getClass().getName());
+    vertx.deployVerticle(new VerticleA());
+    vertx.deployVerticle(new VerticleB());
     vertx.createHttpServer()
       .requestHandler(req -> req.response()
         .putHeader("content-type", "text/plain")
