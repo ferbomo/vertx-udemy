@@ -11,6 +11,7 @@ import java.time.Duration;
 
 public class PublishSubscribeExample {
 
+  public static final String START = "Start {}";
   public static final Logger LOG = LoggerFactory.getLogger(PublishSubscribeExample.class);
 
   public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class PublishSubscribeExample {
 
     @Override
     public void start(final Promise<Void> startPromise) throws Exception {
-      LOG.debug("Start {}", getClass().getName());
+      LOG.debug(START, getClass().getName());
       startPromise.complete();
       vertx.setPeriodic(Duration.ofSeconds(1).toMillis(), id ->
         vertx.eventBus().publish(Publish.class.getName(), "A message for everyone!" + id));
@@ -37,7 +38,7 @@ public class PublishSubscribeExample {
 
     @Override
     public void start(final Promise<Void> startPromise) throws Exception {
-      LOG.debug("Start {}", getClass().getName());
+      LOG.debug(START, getClass().getName());
       startPromise.complete();
       vertx.eventBus().consumer(Publish.class.getName(), message -> {
         LOG.debug("Received: {}", message.body());
@@ -52,7 +53,7 @@ public class PublishSubscribeExample {
 
     @Override
     public void start(final Promise<Void> startPromise) throws Exception {
-      LOG.debug("Start {}", getClass().getName());
+      LOG.debug(START, getClass().getName());
       startPromise.complete();
       vertx.eventBus().consumer(Publish.class.getName(), message -> {
         LOG.debug("Received: {}", message.body());

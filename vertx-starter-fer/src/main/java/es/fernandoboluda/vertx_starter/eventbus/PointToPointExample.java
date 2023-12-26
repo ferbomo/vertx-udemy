@@ -37,9 +37,7 @@ public class PointToPointExample {
     public void start(final Promise<Void> startPromise) throws Exception {
       LOG.debug("Start {}", getClass().getName());
       startPromise.complete();
-      vertx.eventBus().consumer(Sender.class.getName(), message -> {
-        LOG.debug("Received: {}", message.body());
-      });
+      vertx.eventBus().consumer(Sender.class.getName(), message -> LOG.debug("Received: {}", message.body()));
     }
 
   }
